@@ -9,6 +9,8 @@ namespace ShopApi.Controllers
     [Route("/orders")]
     public class OrderController : ControllerBase
     {
+        [HttpPost]
+        [Route("")]
         public Order Post(
             [FromServices] ICustomerRepository custumerRepository,
             [FromServices] IOrderRepository orderRepository,
