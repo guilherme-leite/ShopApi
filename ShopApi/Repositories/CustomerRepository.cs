@@ -14,7 +14,6 @@ namespace ShopApi.Repositories
         public void Save(Customer customer)
         {
             _context.Add(customer);
-            _context.SaveChanges();
         }
     }
 }
