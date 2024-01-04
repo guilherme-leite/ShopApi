@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ShopApi.Data;
 using ShopApi.Models;
 using ShopApi.Repositories;
 
@@ -10,7 +11,8 @@ namespace ShopApi.Controllers
     {
         public Order Post(
             [FromServices] ICustomerRepository custumerRepository,
-            [FromServices] IOrderRepository orderRepository)
+            [FromServices] IOrderRepository orderRepository,
+            [FromServices] IUnitOfWork uow)
         {
             try {
             var customer = new Customer { Name = "Guilherme Leite" };
@@ -19,10 +21,13 @@ namespace ShopApi.Controllers
             custumerRepository.Save(customer);
             orderRepository.Save(order);
 
+            uow.Commit();
+
             return order;
 
             }catch (Exception ex)
-            {
+            {   
+                uow.RollBack();
                 return null;
             }
         }
